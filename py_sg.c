@@ -4,6 +4,8 @@
  *
  * Copyright (C) 2008 by Daniel Lenski <lenski@umd.edu>
  * Time-stamp: <2008-09-19 00:18:51 dlenski>
+ * 
+ * Migrated to Python3 by crypto-universe <ykp@protonmail.ch>
  *
  * Released under the terms of the
  * GNU General Public License version 2 or later
@@ -112,17 +114,18 @@ sg_read(PyObject *self, PyObject *args)
   
   if (!PyArg_ParseTuple(args, "O&s#O|i:read", obj_to_fd, &sg_fd, &cmd, &cmdLen, &bufObj, &timeout))
     return NULL;
+  // yes, I know, it is deprecated
   if (PyObject_AsWriteBuffer(bufObj, (void*)&buf, &bufLen) < 0) {
-    bufLen = PyInt_AsLong(bufObj);
+    bufLen = PyLong_AsLong(bufObj);
     if (bufLen <= 0) {
       PyErr_SetString(PyExc_TypeError,
                       "must provide a writable buffer object, or an integer (> 0) specifying the buffer size");
       return NULL;
     }
     PyErr_Clear();
-    bufObj = PyString_FromStringAndSize(NULL, bufLen); // new blank string
+    bufObj = PyBytes_FromStringAndSize(NULL, bufLen); // new blank string
     if (!bufObj) return NULL;
-    buf = (unsigned char*)PyString_AS_STRING(bufObj);
+    buf = (unsigned char*)PyBytes_AS_STRING(bufObj);
     newbuf = 1;
   }
 
@@ -166,11 +169,11 @@ sg_read(PyObject *self, PyObject *args)
   int len = io.dxfer_len - io.resid;
   if (newbuf) {
     // trim to size of data actually received
-    if (_PyString_Resize(&bufObj, len) < 0) return NULL;
+    if (_PyBytes_Resize(&bufObj, len) < 0) return NULL;
     return bufObj;
   } else {
     // data is in writable buffer, just return length
-    return PyInt_FromLong(len);
+    return PyLong_FromLong(len);
   }
 }
 
@@ -190,16 +193,26 @@ static PyMethodDef SgMethods[] = {
   {NULL, NULL, 0, NULL}
 };
 
+static struct PyModuleDef py_sg_definition = { 
+    PyModuleDef_HEAD_INIT,
+    "py_sg",
+    module__doc__,
+    -1, 
+    SgMethods
+};
+
 PyMODINIT_FUNC
-initpy_sg(void)
+PyInit_py_sg(void)
 {
   // initialize module
-  PyObject *mod = Py_InitModule3("py_sg", SgMethods, module__doc__);
-  if (!mod) return;
+  Py_Initialize();
+  PyMODINIT_FUNC mod = PyModule_Create(&py_sg_definition);
+  if (!mod) return NULL;
   
   // SCSIError
   PyObject *doc = Py_BuildValue("{ss}", "__doc__", SCSIError__doc__);
   SCSIError = PyErr_NewException( "py_sg.SCSIError", NULL, doc);
 
   PyModule_AddObject(mod, "SCSIError", SCSIError);
+  return mod;
 }

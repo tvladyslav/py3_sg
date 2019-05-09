@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: py_sg
-Version: 0.11
+Version: 0.12
 Summary: Python SCSI generic library
 Home-page: http://tonquil.homeip.net/~dlenski/py_sg
 Author: Dan Lenski

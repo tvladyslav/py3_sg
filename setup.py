@@ -2,7 +2,7 @@
 
 from distutils.core import setup, Extension
 setup(name = "py_sg",
-      version = "0.11",
+      version = "0.12",
       ext_modules=[
         Extension("py_sg", ["py_sg.c"])
         ],
