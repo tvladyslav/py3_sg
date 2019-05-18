@@ -1,6 +1,6 @@
 ### py_sg
 
-Version 0.12
+Version 0.13
 
 This is a fork of Dan Lenski's SCSI library, rewritten to be compatible with **Python3**
 
@@ -18,16 +18,12 @@ sudo python3 -m pip install <path/to/setup.py>
 ```
 5. You are done
 
-### Known issues - deprecated function
+### Changelog
 
-```
-py_sg.c: In function ‘sg_read’:
-py_sg.c:118:3: warning: ‘PyObject_AsWriteBuffer’ is deprecated [-Wdeprecated-declarations]
-  118 |   if (PyObject_AsWriteBuffer(bufObj, (void*)&buf, &bufLen) < 0) {
-      |   ^~
-In file included from /usr/include/python3.7m/Python.h:147,
-                 from py_sg.c:14:
-/usr/include/python3.7m/abstract.h:500:17: note: declared here
-  500 | PyAPI_FUNC(int) PyObject_AsWriteBuffer(PyObject *obj,
-      |                 ^~~~~~~~~~~~~~~~~~~~~~
-```
+Version 0.13 - **breaking** change in API - split read function into 2. Get rid of deprecated function.
+
+Version 0.12 - migrate to Python3, one deprecated function used
+
+Version 0.11 - original
+
+
