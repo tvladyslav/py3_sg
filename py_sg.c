@@ -4,12 +4,14 @@
  *
  * Copyright (C) 2008 by Daniel Lenski <lenski@umd.edu>
  * Time-stamp: <2008-09-19 00:18:51 dlenski>
- * 
+ *
  * Migrated to Python3 by crypto-universe <ykp@protonmail.ch>
  *
  * Released under the terms of the
  * GNU General Public License version 2 or later
  */
+
+#define PY_SSIZE_T_CLEAN
 
 #include <Python.h>
 
@@ -75,7 +77,7 @@ sg_write(PyObject *self, PyObject *args)
   io.timeout = timeout;   /* in millisecs */
   /* io.flags = 0; */     /* take defaults: indirect IO, etc */
   /* io.pack_id = 0; */
-  /* io.usr_ptr = NULL; */  
+  /* io.usr_ptr = NULL; */
 
   r = ioctl(sg_fd, SG_IO, &io);
 
@@ -89,7 +91,7 @@ sg_write(PyObject *self, PyObject *args)
                     Py_BuildValue("BBBs#", io.masked_status, io.host_status, io.driver_status, sense, io.sb_len_wr));
     return NULL;
   }
-  
+
   Py_RETURN_NONE;
 }
 
@@ -136,7 +138,7 @@ sg_read_into_buf(PyObject *self, PyObject *args)
   io.timeout = timeout;   /* in millisecs */
   /* io.flags = 0; */     /* take defaults: indirect IO, etc */
   /* io.pack_id = 0; */
-  /* io.usr_ptr = NULL; */  
+  /* io.usr_ptr = NULL; */
 
   r = ioctl(sg_fd, SG_IO, &io);
 
@@ -175,7 +177,7 @@ sg_read_as_bin_str(PyObject *self, PyObject *args)
   Py_ssize_t cmdLen, bufLen;
 
   // parse and check arguments
-  
+
   if (!PyArg_ParseTuple(args, "O&s#n|i:read_as_bin_str", obj_to_fd, &sg_fd, &cmd, &cmdLen, &bufLen, &timeout))
     return NULL;
 
@@ -206,7 +208,7 @@ sg_read_as_bin_str(PyObject *self, PyObject *args)
   io.timeout = timeout;   /* in millisecs */
   /* io.flags = 0; */     /* take defaults: indirect IO, etc */
   /* io.pack_id = 0; */
-  /* io.usr_ptr = NULL; */  
+  /* io.usr_ptr = NULL; */
 
   r = ioctl(sg_fd, SG_IO, &io);
 
@@ -244,11 +246,11 @@ static PyMethodDef SgMethods[] = {
   {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef py_sg_definition = { 
+static struct PyModuleDef py_sg_definition = {
     PyModuleDef_HEAD_INIT,
     "py_sg",
     module__doc__,
-    -1, 
+    -1,
     SgMethods
 };
 
@@ -259,7 +261,7 @@ PyInit_py_sg(void)
   Py_Initialize();
   PyMODINIT_FUNC mod = PyModule_Create(&py_sg_definition);
   if (!mod) return NULL;
-  
+
   // SCSIError
   PyObject *doc = Py_BuildValue("{ss}", "__doc__", SCSIError__doc__);
   SCSIError = PyErr_NewException( "py_sg.SCSIError", NULL, doc);

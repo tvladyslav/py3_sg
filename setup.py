@@ -2,7 +2,7 @@
 
 from distutils.core import setup, Extension
 setup(name = "py_sg",
-      version = "0.13",
+      version = "0.14",
       ext_modules=[
         Extension("py_sg", ["py_sg.c"])
         ],
@@ -21,4 +21,4 @@ will be raised.''',
       url = 'http://tonquil.homeip.net/~dlenski/py_sg',
       license = 'GPLv3',
       classifiers = ['Topic :: System :: Hardware'],
-)                                                                                                  
+)
