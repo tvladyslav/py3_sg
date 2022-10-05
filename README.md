@@ -2,7 +2,7 @@
 
 Version 0.14
 
-Add missingy macro for newer Python 3 versions
+Add missing macro for newer Python 3 versions
 
 Version 0.13
 
