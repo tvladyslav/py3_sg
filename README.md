@@ -1,7 +1,5 @@
 ### py_sg
 
-Version 0.13
-
 This is a fork of Dan Lenski's SCSI library, rewritten to be compatible with **Python3**
 
 ### How to install
@@ -19,6 +17,8 @@ sudo python3 -m pip install <path/to/setup.py>
 5. You are done
 
 ### Changelog
+
+Version 0.14 - Missing PY_SSIZE_T_CLEAN macro added, fix for Python 3.10 version
 
 Version 0.13 - **breaking** change in API - split read function into 2. Get rid of deprecated function.
 
