@@ -1,14 +1,13 @@
 /**
  * Python SCSI generic library
- * version 0.13
  *
  * Copyright (C) 2008 by Daniel Lenski <lenski@umd.edu>
  * Time-stamp: <2008-09-19 00:18:51 dlenski>
  *
- * Migrated to Python3 by crypto-universe <ykp@protonmail.ch>
+ * Migrated to Python3 by tvladyslav <ykp@protonmail.ch>
  *
  * Released under the terms of the
- * GNU General Public License version 2 or later
+ * GNU General Public License version 3 or later
  */
 
 #define PY_SSIZE_T_CLEAN
@@ -246,25 +245,25 @@ static PyMethodDef SgMethods[] = {
   {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef py_sg_definition = {
+static struct PyModuleDef py3_sg_definition = {
     PyModuleDef_HEAD_INIT,
-    "py_sg",
+    "py3_sg",
     module__doc__,
     -1,
     SgMethods
 };
 
 PyMODINIT_FUNC
-PyInit_py_sg(void)
+PyInit_py3_sg(void)
 {
   // initialize module
   Py_Initialize();
-  PyMODINIT_FUNC mod = PyModule_Create(&py_sg_definition);
+  PyMODINIT_FUNC mod = PyModule_Create(&py3_sg_definition);
   if (!mod) return NULL;
 
   // SCSIError
   PyObject *doc = Py_BuildValue("{ss}", "__doc__", SCSIError__doc__);
-  SCSIError = PyErr_NewException( "py_sg.SCSIError", NULL, doc);
+  SCSIError = PyErr_NewException( "py3_sg.SCSIError", NULL, doc);
 
   PyModule_AddObject(mod, "SCSIError", SCSIError);
   return mod;

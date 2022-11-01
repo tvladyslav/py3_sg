@@ -1,29 +1,46 @@
-### py_sg
+# py3_sg
 
-This is a fork of Dan Lenski's SCSI library, rewritten to be compatible with **Python3**
+## Description
 
-### How to install
+This is a small Python extension which sends arbitrary commands to SCSI devices,
+via the Linux SCSI Generic driver, which provides the SG_IO ioctl for this purpose.
 
-1. Clone this repo;
-2. Enter the folder
-3. Try to compile:
+Basically, the module includes two methods, read and write, which
+allow you to issue commands to SCSI devices and read and write
+accompanying data. If an OS error occurs, the `OSError` exception will
+be raised, while if a SCSI error occurs, the `py_sg.SCSIError` exception
+will be raised.
+
+## PyPI install
+
+```bash
+sudo python3 -m pip install py3_sg
 ```
-python3 setup.py build
-```
-4. If .so library is compiled, install:
-```
-sudo python3 -m pip install <path/to/setup.py>
-```
-5. You are done
 
-### Changelog
+## Manual install
 
-Version 0.14 - Missing PY_SSIZE_T_CLEAN macro added, fix for Python 3.10 version
+1. Install dependencies:
 
-Version 0.13 - **breaking** change in API - split read function into 2. Get rid of deprecated function.
+    ```bash
+    sudo apt install python3-dev
+    ```
 
-Version 0.12 - migrate to Python3, one deprecated function used
+2. Clone this repo
+3. Enter the folder
+4. Try to compile:
 
-Version 0.11 - original
+    ```bash
+    python3 setup.py build
+    ```
 
+5. If .so library is compiled, install:
 
+    ```bash
+    sudo python3 -m pip install <path/to/setup.py>
+    ```
+
+6. You are done
+
+## Precompiled package
+
+[https://pypi.org/project/py3-sg/](https://pypi.org/project/py3-sg/)

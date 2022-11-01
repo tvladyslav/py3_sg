@@ -1,2 +1,5 @@
 build/
+dist/
+py3_sg.egg-info/
+MANIFEST
 *~

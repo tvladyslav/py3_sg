@@ -1,0 +1,29 @@
+[project]
+name = "py3_sg"
+version = "0.16"
+authors = [
+    { name="Dan Lenski", email="dlenski@gmail.com" },
+]
+maintainers = [
+    { name="Vladyslav Tsilytskyi", email="ykp@protonmail.ch" },
+]
+description = "Python SCSI generic library"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = [ "SCSI", ]
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: System :: Hardware",
+]
+
+[project.license]
+"text" = "GPL-3.0-or-later"
+
+[project.urls]
+"Homepage" = "https://github.com/tvladyslav/py3_sg"
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools >= 40.9.0"]
